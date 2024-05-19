@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: loki-server
+  namespace: monitoring
+spec:
+  serviceName: loki-server
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki-server
+  template:
+    metadata:
+      labels:
+        app: loki-server
+    spec:
+      containers:
+      - name: loki
+        image: <loki-image>
+        # Add other configuration options here
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-service
+  namespace: monitoring
+spec:
+  selector:
+    app: loki-server
+  ports:
+  - port: 3100
+    targetPort: 3100

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: opentelemetry-agent
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: opentelemetry-agent
+  template:
+    metadata:
+      labels:
+        app: opentelemetry-agent
+    spec:
+      containers:
+      - name: opentelemetry-agent
+        image: <opentelemetry-agent-image>
+        # Add other configuration options here
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opentelemetry-config
+  namespace: monitoring
+data:
+  path: /data/opentelemetry

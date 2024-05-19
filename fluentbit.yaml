@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentbit-agent
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: fluentbit-agent
+  template:
+    metadata:
+      labels:
+        app: fluentbit-agent
+    spec:
+      containers:
+      - name: fluentbit
+        image: <fluentbit-image>
+        # Add other configuration options here
